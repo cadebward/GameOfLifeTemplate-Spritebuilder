@@ -140,6 +140,9 @@ static const int GRID_COLUMNS = 10;
 
 - (void)updateCreatures
 {
+    // variable for alive count label
+    int numAlive = 0;
+    
     // iterate over each row
     for (int i = 0; i < [_gridArray count]; i++) {
         // iterate over each column
@@ -147,11 +150,13 @@ static const int GRID_COLUMNS = 10;
             Creature *current = _gridArray[i][j];
             if (current.livingNeighbors == 3) {
                 current.isAlive = true;
+                numAlive++;
             } else if (current.livingNeighbors <= 1 || current.livingNeighbors >= 4) {
                 current.isAlive = false;
             }
         }
     }
+    _totalAlive = numAlive;
 }
 
 - (BOOL)isIndexValidForX:(int)x andY:(int)y
